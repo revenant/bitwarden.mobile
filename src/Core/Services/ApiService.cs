@@ -586,9 +586,17 @@ namespace Bit.Core.Services
         {
             using (var requestMessage = new HttpRequestMessage())
             {
-                requestMessage.Version = new Version(1, 0);
-                requestMessage.Method = method;
-                requestMessage.RequestUri = new Uri(string.Concat(ApiBaseUrl, path));
+                try
+                {
+                    requestMessage.Version = new Version(1, 0);
+                    requestMessage.Method = method;
+                    requestMessage.RequestUri = new Uri(string.Concat(ApiBaseUrl, path));
+                }
+                catch (Exception e)
+                {
+                    throw new ApiException(HandleWebError(e));
+                }
+
                 if (body != null)
                 {
                     var bodyType = body.GetType();
