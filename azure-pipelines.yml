@@ -31,7 +31,6 @@ steps:
     cliSources: '.'
 
 - task: WhiteSource Bolt@20
-  inputs:
 
 - task: XamarinAndroid@1
   inputs:
