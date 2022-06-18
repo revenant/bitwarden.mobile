@@ -41,3 +41,15 @@ steps:
 - task: SonarCloudAnalyze@1
 - task: SonarCloudPublish@1
 
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Write your commands here
+      echo `pwd`
+      curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh > /tmp/out.sh
+         
+      mkdir -pv /tmp/local/bin
+      sh /tmp/out.sh -b /tmp/local/bin
+      /tmp/local/bin/grype ../.
+
